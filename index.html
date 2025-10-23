@@ -1,174 +1,115 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Приглашение на свидание 💞</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(180deg, #ffd6eb, #fff0f8);
-      color: #3d003d;
-      overflow-x: hidden;
-      text-align: center;
-    }
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      margin-top: 120px;
-      color: #d60080;
-      animation: fadeIn 2s ease;
-    }
-    p {
-      font-size: 1.2rem;
-      color: #5c005c;
-      max-width: 600px;
-      margin: 20px auto;
-      animation: fadeIn 3s ease;
-    }
-    .kitty {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      width: 90px;
-      animation: float 4s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    .btn {
-      background: linear-gradient(90deg, #ff5fa2, #ff89c1);
-      color: white;
-      border: none;
-      border-radius: 30px;
-      padding: 15px 35px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      margin-top: 40px;
-      transition: 0.3s;
-      box-shadow: 0 10px 25px rgba(255,105,180,0.3);
-      animation: fadeIn 4s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 12px 30px rgba(255,105,180,0.4);
-    }
-    .flowers {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    .petal {
-      position: absolute;
-      opacity: 0.7;
-      animation: fall linear infinite;
-      top: -10px;
-      border-radius: 50%;
-    }
-    @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-    }
-    .heart {
-      position: absolute;
-      font-size: 22px;
-      animation: rise 2s ease-out forwards;
-    }
-    @keyframes rise {
-      0% { transform: translateY(0) scale(1); opacity: 1; }
-      100% { transform: translateY(-150px) scale(0.8); opacity: 0; }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .cats {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 50px;
-      flex-wrap: wrap;
-      animation: fadeIn 5s ease;
-    }
-    .cats img {
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(255,105,180,0.3);
-      transition: transform 0.3s;
-    }
-    .cats img:hover {
-      transform: scale(1.05);
-    }
-    footer {
-      position: relative;
-      margin-top: 60px;
-      font-size: 1rem;
-      color: #a3005f;
-      animation: fadeIn 4s ease;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Приглашение на свидание 💞</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(180deg, #ffd6eb, #fff0f8);
+    color: #3d003d;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+  }
+
+  .container {
+    text-align: center;
+    z-index: 10;
+  }
+
+  h1 {
+    font-size: 3rem;
+    color: #d60080;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 1.5rem;
+    color: #5c005c;
+    margin-bottom: 30px;
+  }
+
+  .btn {
+    background: linear-gradient(90deg, #ff5fa2, #ff89c1);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(255,105,180,0.3);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  .btn:hover {
+    transform: scale(1.05);
+  }
+
+  .flower, .heart {
+    position: absolute;
+    top: -50px;
+    font-size: 20px;
+    animation: fall linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+</style>
 </head>
 <body>
-  <img class="kitty" src="https://i.imgur.com/6yN4W5K.png" alt="Hello Kitty">
-  <h1>Алина 💖</h1>
-  <p id="invite-text">Я приглашаю тебя на свидание.<br>В это воскресенье вечером.<br>Обещаю — будет красиво, вкусно и по-особенному 💐</p>
-  <button class="btn" id="goBtn">Пойду с тобой 💞</button>
-
-  <div class="cats">
-    <img src="https://i.pinimg.com/564x/93/5b/45/935b45a390c1ddf45e46f33f7f7ec26f.jpg" alt="Милый котик 1">
-    <img src="https://i.pinimg.com/564x/d1/68/a5/d168a598c731cf50b2d4e8dfb93e41e3.jpg" alt="Милый котик 2">
-    <img src="https://i.pinimg.com/564x/1a/59/3f/1a593f5b0c8bdf81f4f147f18a615fc7.jpg" alt="Милый котик 3">
+  <div class="container">
+    <h1>Алина 💖</h1>
+    <p>Я приглашаю тебя на свидание<br>в это воскресенье вечером 💐</p>
+    <button class="btn" id="goBtn">Пойду с тобой 💞</button>
   </div>
 
-  <footer>🎶 A$AP Rocky — I Smoked Away My Brain</footer>
+<script>
+  // генерация падающих цветочков и сердечек
+  const icons = ['🌸','💖','💞','💗','💕','🌷','🌺','🌼'];
+  function createIcon() {
+    const el = document.createElement('div');
+    const icon = icons[Math.floor(Math.random() * icons.length)];
+    el.textContent = icon;
+    el.classList.add('flower');
+    el.style.left = Math.random() * window.innerWidth + 'px';
+    el.style.fontSize = 15 + Math.random() * 25 + 'px';
+    el.style.animationDuration = 4 + Math.random() * 4 + 's';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 8000);
+  }
 
-  <div class="flowers" id="flowers"></div>
+  // создаём новые элементы каждые 300ms
+  setInterval(createIcon, 300);
 
-  <audio id="music">
-    <source src="https://files.catbox.moe/3l1k4w.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    // падающие лепестки
-    const flowers = document.getElementById('flowers');
-    for (let i = 0; i < 25; i++) {
-      const petal = document.createElement('div');
-      petal.classList.add('petal');
-      petal.style.left = Math.random() * 100 + 'vw';
-      petal.style.animationDuration = 4 + Math.random() * 4 + 's';
-      petal.style.background = ['#ffb6c1', '#ffcce0', '#ffd6eb'][Math.floor(Math.random() * 3)];
-      petal.style.width = petal.style.height = 12 + Math.random() * 12 + 'px';
-      flowers.appendChild(petal);
-    }
-
-    const btn = document.getElementById('goBtn');
-    const text = document.getElementById('invite-text');
-    const music = document.getElementById('music');
-
-    btn.addEventListener('click', (e) => {
-      text.innerHTML = '💖 Я знал, что ты согласишься 💖';
-      music.play();
+  // сердечки вылетают из кнопки при клике
+  const btn = document.getElementById('goBtn');
+  btn.addEventListener('click', () => {
+    for(let i=0;i<20;i++){
+      const heart = document.createElement('div');
+      const h = ['💖','💞','💗','💕'][Math.floor(Math.random()*4)];
+      heart.textContent = h;
+      heart.classList.add('heart');
       const rect = btn.getBoundingClientRect();
-      for (let i = 0; i < 15; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.textContent = ['💞','💖','💗','💕'][Math.floor(Math.random()*4)];
-        document.body.appendChild(heart);
-        heart.style.left = rect.left + rect.width / 2 + (Math.random() * 60 - 30) + 'px';
-        heart.style.top = rect.top + 'px';
-        heart.style.animationDuration = 1.5 + Math.random() * 1.5 + 's';
-        setTimeout(() => heart.remove(), 2000);
-      }
-    });
-  </script>
+      heart.style.left = rect.left + rect.width/2 + (Math.random()*60-30) + 'px';
+      heart.style.top = rect.top + 'px';
+      heart.style.fontSize = 20 + Math.random()*15 + 'px';
+      heart.style.animationDuration = 1.5 + Math.random()*1.5 + 's';
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(),2000);
+    }
+  });
+</script>
 </body>
 </html>
