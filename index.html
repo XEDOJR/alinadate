@@ -69,14 +69,14 @@
 </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="inviteContainer">
     <h1>Алина 💖</h1>
-    <p>Я приглашаю тебя на свидание<br>в это воскресенье вечером 💐</p>
+    <p id="inviteText">Я приглашаю тебя на свидание<br>в это воскресенье вечером 💐</p>
     <button class="btn" id="goBtn">Пойду с тобой 💞</button>
   </div>
 
 <script>
-  // генерация падающих цветочков и сердечек
+  // падающие цветочки и сердечки по экрану
   const icons = ['🌸','💖','💞','💗','💕','🌷','🌺','🌼'];
   function createIcon() {
     const el = document.createElement('div');
@@ -89,19 +89,21 @@
     document.body.appendChild(el);
     setTimeout(() => el.remove(), 8000);
   }
-
-  // создаём новые элементы каждые 300ms
   setInterval(createIcon, 300);
 
-  // сердечки вылетают из кнопки при клике
+  // клик на кнопку
   const btn = document.getElementById('goBtn');
+  const inviteContainer = document.getElementById('inviteContainer');
+  const inviteText = document.getElementById('inviteText');
+
   btn.addEventListener('click', () => {
+    // Сердечки из кнопки
+    const rect = btn.getBoundingClientRect();
     for(let i=0;i<20;i++){
       const heart = document.createElement('div');
       const h = ['💖','💞','💗','💕'][Math.floor(Math.random()*4)];
       heart.textContent = h;
       heart.classList.add('heart');
-      const rect = btn.getBoundingClientRect();
       heart.style.left = rect.left + rect.width/2 + (Math.random()*60-30) + 'px';
       heart.style.top = rect.top + 'px';
       heart.style.fontSize = 20 + Math.random()*15 + 'px';
@@ -109,6 +111,9 @@
       document.body.appendChild(heart);
       setTimeout(()=>heart.remove(),2000);
     }
+
+    // Переход/смена контента
+    inviteContainer.innerHTML = '<h1>💖 Я знал, что ты согласишься 💖</h1>';
   });
 </script>
 </body>
