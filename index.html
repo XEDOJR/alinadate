@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+import zipfile
+from pathlib import Path
+
+# HTML с улучшениями (v3)
+html_v3 = """<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -12,7 +16,7 @@
       font-family: 'Inter', sans-serif;
       background: linear-gradient(180deg, #ffd6eb, #fff0f8);
       color: #3d003d;
-      overflow: hidden;
+      overflow-x: hidden;
       text-align: center;
     }
     h1 {
@@ -52,36 +56,34 @@
       transition: 0.3s;
       box-shadow: 0 10px 25px rgba(255,105,180,0.3);
       animation: fadeIn 4s ease;
+      position: relative;
+      overflow: hidden;
     }
     .btn:hover {
       transform: scale(1.05);
       box-shadow: 0 12px 30px rgba(255,105,180,0.4);
     }
-    .flowers, .hearts {
+    .flowers {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
       pointer-events: none;
       overflow: hidden;
     }
-    .petal, .heart {
+    .petal {
       position: absolute;
       opacity: 0.7;
       animation: fall linear infinite;
-    }
-    .petal {
       top: -10px;
-      width: 20px;
-      height: 20px;
-      background: pink;
       border-radius: 50%;
-    }
-    .heart {
-      font-size: 22px;
-      animation: rise 2.5s ease-out forwards;
     }
     @keyframes fall {
       0% { transform: translateY(0) rotate(0deg); opacity: 1; }
       100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+    .heart {
+      position: absolute;
+      font-size: 22px;
+      animation: rise 2s ease-out forwards;
     }
     @keyframes rise {
       0% { transform: translateY(0) scale(1); opacity: 1; }
@@ -91,10 +93,28 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    .cats {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 50px;
+      flex-wrap: wrap;
+      animation: fadeIn 5s ease;
+    }
+    .cats img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(255,105,180,0.3);
+      transition: transform 0.3s;
+    }
+    .cats img:hover {
+      transform: scale(1.05);
+    }
     footer {
-      position: absolute;
-      bottom: 40px;
-      width: 100%;
+      position: relative;
+      margin-top: 60px;
       font-size: 1rem;
       color: #a3005f;
       animation: fadeIn 4s ease;
@@ -102,15 +122,20 @@
   </style>
 </head>
 <body>
-  <img class="kitty" src="https://stablediffusionweb.com/ru/image/28954477-hello-kitty-cute-head-image" alt="Hello Kitty">
+  <img class="kitty" src="https://i.imgur.com/6yN4W5K.png" alt="Hello Kitty">
   <h1>Алина 💖</h1>
   <p id="invite-text">Я приглашаю тебя на свидание.<br>В это воскресенье вечером.<br>Обещаю — будет красиво, вкусно и по-особенному 💐</p>
   <button class="btn" id="goBtn">Пойду с тобой 💞</button>
 
+  <div class="cats">
+    <img src="https://i.pinimg.com/564x/93/5b/45/935b45a390c1ddf45e46f33f7f7ec26f.jpg" alt="Милый котик 1">
+    <img src="https://i.pinimg.com/564x/d1/68/a5/d168a598c731cf50b2d4e8dfb93e41e3.jpg" alt="Милый котик 2">
+    <img src="https://i.pinimg.com/564x/1a/59/3f/1a593f5b0c8bdf81f4f147f18a615fc7.jpg" alt="Милый котик 3">
+  </div>
+
   <footer>🎶 A$AP Rocky — I Smoked Away My Brain</footer>
 
   <div class="flowers" id="flowers"></div>
-  <div class="hearts" id="hearts"></div>
 
   <audio id="music">
     <source src="https://files.catbox.moe/3l1k4w.mp3" type="audio/mpeg">
@@ -130,22 +155,33 @@
 
     const btn = document.getElementById('goBtn');
     const text = document.getElementById('invite-text');
-    const heartsContainer = document.getElementById('hearts');
     const music = document.getElementById('music');
 
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
       text.innerHTML = '💖 Я знал, что ты согласишься 💖';
       music.play();
+      const rect = btn.getBoundingClientRect();
       for (let i = 0; i < 15; i++) {
         const heart = document.createElement('div');
         heart.classList.add('heart');
         heart.textContent = ['💞','💖','💗','💕'][Math.floor(Math.random()*4)];
-        heart.style.left = Math.random() * 100 + 'vw';
+        document.body.appendChild(heart);
+        heart.style.left = rect.left + rect.width / 2 + (Math.random() * 60 - 30) + 'px';
+        heart.style.top = rect.top + 'px';
         heart.style.animationDuration = 1.5 + Math.random() * 1.5 + 's';
-        heartsContainer.appendChild(heart);
-        setTimeout(() => heart.remove(), 2500);
+        setTimeout(() => heart.remove(), 2000);
       }
     });
   </script>
 </body>
-</html>
+</html>"""
+
+# Создание файлов
+html_path_v3 = Path("/mnt/data/invite_v3.html")
+html_path_v3.write_text(html_v3, encoding="utf-8")
+
+zip_path_v3 = Path("/mnt/data/invite_v3.zip")
+with zipfile.ZipFile(zip_path_v3, "w") as zipf:
+    zipf.write(html_path_v3, arcname="index.html")
+
+zip_path_v3
