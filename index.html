@@ -3,118 +3,157 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Приглашение на свидание 💞</title>
+<title>Для Алины ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(180deg, #ffd6eb, #fff0f8);
-    color: #3d003d;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    position: relative;
-  }
-
-  .container {
-    text-align: center;
-    z-index: 10;
-  }
-
-  h1 {
-    font-size: 3rem;
-    color: #d60080;
-    margin-bottom: 20px;
-  }
-
-  p {
-    font-size: 1.5rem;
-    color: #5c005c;
-    margin-bottom: 30px;
-  }
-
-  .btn {
-    background: linear-gradient(90deg, #ff5fa2, #ff89c1);
-    color: white;
-    border: none;
-    border-radius: 30px;
-    padding: 15px 35px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    box-shadow: 0 10px 25px rgba(255,105,180,0.3);
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s;
-  }
-
-  .btn:hover {
-    transform: scale(1.05);
-  }
-
-  .flower, .heart {
-    position: absolute;
-    top: -50px;
-    font-size: 20px;
-    animation: fall linear infinite;
-    pointer-events: none;
-  }
-
-  @keyframes fall {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-  }
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:'Montserrat',sans-serif;
+overflow-x:hidden;color:white;
+background:#000;
+}
+body::before{
+content:'';
+position:fixed;inset:0;
+background:url('photo.jpg') center center/cover no-repeat;
+z-index:-2;
+}
+body::after{
+content:'';
+position:fixed;inset:0;
+background:rgba(0,0,0,.45);
+z-index:-1;
+}
+.hero{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
+.card{
+max-width:900px;
+background:rgba(255,255,255,.12);
+backdrop-filter:blur(10px);
+border-radius:30px;
+padding:50px;
+text-align:center;
+}
+h1{font-family:'Marck Script',cursive;font-size:4rem;margin-bottom:20px}
+.subtitle{font-size:1.3rem;margin-bottom:25px}
+.days-counter{margin:25px 0;font-size:1.3rem;font-weight:600}
+.message{line-height:1.9;margin:30px 0}
+.invite,.countdown{
+margin-top:35px;padding:25px;border-radius:20px;
+border:1px solid rgba(255,255,255,.25);
+}
+.info{margin:10px 0}
+.button,.surprise-btn{
+display:inline-block;margin-top:30px;padding:15px 30px;
+border-radius:50px;border:none;text-decoration:none;
+background:white;color:#d63384;font-weight:600;cursor:pointer;
+}
+.timer{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;margin-top:20px}
+.time-box{background:rgba(255,255,255,.18);padding:15px;border-radius:15px;min-width:90px}
+.time-box span{display:block;font-size:2rem;font-weight:bold}
+.reveal{opacity:0;transform:translateY(50px);transition:1s}
+.reveal.active{opacity:1;transform:translateY(0)}
+.surprise-message{display:none;margin-top:25px;font-size:1.2rem;line-height:1.8}
+.heart{position:fixed;top:-20px;font-size:20px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh);opacity:0}}
+.footer{margin-top:40px}
+@media(max-width:768px){h1{font-size:3rem}.card{padding:30px}}
 </style>
 </head>
 <body>
-  <div class="container" id="inviteContainer">
-    <h1>Алина 💖</h1>
-    <p id="inviteText">Я приглашаю тебя на свидание<br> в четверг в 19:30 в Byron Lounge и на прогулку по Японскому саду 💐</p>
-    <button class="btn" id="goBtn">Пойду с тобой 💞</button>
-  </div>
+<section class="hero">
+<div class="card">
+<h1>Для Алины ❤️</h1>
+<div class="subtitle">Полгода назад мы стали семьёй</div>
+
+<div class="days-counter" id="daysCounter"></div>
+
+<div class="message reveal">
+Дорогая Алина,<br><br>
+Полгода назад мы стали семьёй.<br><br>
+За эти шесть месяцев было много счастливых моментов,
+улыбок, воспоминаний и маленьких историй,
+которые стали частью нашей жизни.<br><br>
+Я хочу отпраздновать ещё одну важную дату вместе с тобой
+и провести этот вечер рядом с самым любимым человеком.
+</div>
+
+<div class="invite reveal">
+<h2>💌 Приглашение</h2>
+<div class="info">📅 06 июня 2026</div>
+<div class="info">🕔 17:00</div>
+<div class="info">🍣 Ресторан «Хаяо»</div>
+<div class="info">📍 Красная улица 176, к8</div>
+</div>
+
+<div class="countdown reveal">
+<h2>⏳ До нашего вечера осталось</h2>
+<div class="timer">
+<div class="time-box"><span id="days">0</span><small>дней</small></div>
+<div class="time-box"><span id="hours">0</span><small>часов</small></div>
+<div class="time-box"><span id="minutes">0</span><small>минут</small></div>
+<div class="time-box"><span id="seconds">0</span><small>секунд</small></div>
+</div>
+</div>
+
+<a class="button" href="https://maps.google.com/?q=Красная+улица+176+к8" target="_blank">Построить маршрут ❤️</a>
+
+<br>
+
+<button class="surprise-btn" onclick="showSurprise()">🎁 Открыть сюрприз</button>
+
+<div id="surpriseMessage" class="surprise-message">
+Спасибо, что сказала мне «Да» ❤️<br><br>
+Каждый день рядом с тобой делает меня счастливее.<br>
+Люблю тебя.
+</div>
+
+<div class="footer">С любовью, твой муж 💍</div>
+</div>
+</section>
 
 <script>
-  // падающие цветочки и сердечки по экрану
-  const icons = ['🌸','💖','💞','💗','💕','🌷','🌺','🌼'];
-  function createIcon() {
-    const el = document.createElement('div');
-    const icon = icons[Math.floor(Math.random() * icons.length)];
-    el.textContent = icon;
-    el.classList.add('flower');
-    el.style.left = Math.random() * window.innerWidth + 'px';
-    el.style.fontSize = 15 + Math.random() * 25 + 'px';
-    el.style.animationDuration = 4 + Math.random() * 4 + 's';
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 8000);
-  }
-  setInterval(createIcon, 300);
+const weddingDate=new Date('2025-12-06');
+const now=new Date();
+const diffTime=now-weddingDate;
+const marriageDays=Math.floor(diffTime/(1000*60*60*24));
+document.getElementById('daysCounter').innerHTML=`❤️ Мы женаты уже <b>${marriageDays}</b> дней`;
 
-  // клик на кнопку
-  const btn = document.getElementById('goBtn');
-  const inviteContainer = document.getElementById('inviteContainer');
-  const inviteText = document.getElementById('inviteText');
+function createHeart(){
+const h=document.createElement('div');
+h.classList.add('heart');
+h.innerHTML='❤️';
+h.style.left=Math.random()*100+'vw';
+h.style.animationDuration=(Math.random()*4+4)+'s';
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),8000);
+}
+setInterval(createHeart,300);
 
-  btn.addEventListener('click', () => {
-    // Сердечки из кнопки
-    const rect = btn.getBoundingClientRect();
-    for(let i=0;i<20;i++){
-      const heart = document.createElement('div');
-      const h = ['💖','💞','💗','💕'][Math.floor(Math.random()*4)];
-      heart.textContent = h;
-      heart.classList.add('heart');
-      heart.style.left = rect.left + rect.width/2 + (Math.random()*60-30) + 'px';
-      heart.style.top = rect.top + 'px';
-      heart.style.fontSize = 20 + Math.random()*15 + 'px';
-      heart.style.animationDuration = 1.5 + Math.random()*1.5 + 's';
-      document.body.appendChild(heart);
-      setTimeout(()=>heart.remove(),2000);
-    }
+const targetDate=new Date('2026-06-06T17:00:00');
+function updateCountdown(){
+const now=new Date();
+const diff=targetDate-now;
+if(diff<=0)return;
+document.getElementById('days').innerText=Math.floor(diff/86400000);
+document.getElementById('hours').innerText=Math.floor((diff%86400000)/3600000);
+document.getElementById('minutes').innerText=Math.floor((diff%3600000)/60000);
+document.getElementById('seconds').innerText=Math.floor((diff%60000)/1000);
+}
+setInterval(updateCountdown,1000); updateCountdown();
 
-    // Переход/смена контента
-    inviteContainer.innerHTML = '<h1>💖 Я знал, что ты согласишься 💖</h1>';
-  });
+function revealElements(){
+document.querySelectorAll('.reveal').forEach(el=>{
+if(el.getBoundingClientRect().top<window.innerHeight-150){
+el.classList.add('active');
+}
+});
+}
+window.addEventListener('scroll',revealElements);
+revealElements();
+
+function showSurprise(){
+document.getElementById('surpriseMessage').style.display='block';
+}
 </script>
 </body>
 </html>
